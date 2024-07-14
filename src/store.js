@@ -1,6 +1,6 @@
 import { createStore } from "redux";
 
-const todos = (state = [], action) => {
+const reducer = (state = [], action) => {
   switch (action.type) {
     case "ADD_TODO": {
       return [
@@ -24,7 +24,9 @@ const todos = (state = [], action) => {
   }
 }
 
-export const store = createStore(todos);
+export const store = createStore(
+  reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 // action creators
 export const addTodo = (title) => ({
