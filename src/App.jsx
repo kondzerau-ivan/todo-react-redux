@@ -1,5 +1,6 @@
-import { useSelector, useDispatch } from "react-redux";
-import { addTodo, removeTodo, toggleTodo } from "./store";
+import { NewTodo } from "./components/NewTodo";
+import { TodoList } from "./components/TodoList";
+
 export default function App() {
   return (
     <>
@@ -7,38 +8,5 @@ export default function App() {
       <NewTodo />
       <TodoList />
     </>
-  )
-}
-
-const NewTodo = () => {
-  const dispatch = useDispatch();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch(addTodo(event.target.title.value));
-    event.target.reset();
-  }
-  return <form onSubmit={handleSubmit}>
-    <input type="text" name="title" placeholder="New todo..." />
-    <input type="submit" value="Add Todo" />
-  </form>
-}
-
-const TodoList = () => {
-  const todos = useSelector(state => state);
-  const dispatch = useDispatch();
-  return (
-    <ul>
-      {
-        todos.map(todo =>
-          <li key={todo.id}>
-            <input type="checkbox" checked={todo.completed} onChange={() => dispatch(toggleTodo(todo.id))} />
-            {todo.title}
-            <button
-              onClick={() => dispatch(removeTodo(todo.id))}
-            >delete</button>
-          </li>
-        )
-      }
-    </ul>
   )
 }
